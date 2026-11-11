@@ -52,4 +52,18 @@ a.btn{display:inline-block;background:var(--acc);color:#04121a;font-weight:900;p
 <p>3. التقرير يصل خلال 24 ساعة. الدفع USDC أو تحويل بنكي.</p>
 </div>
 <div class="foot">N3mak — تقارير مبنية على مصادر عامة، وليست اختبار اختراق.</div>
-</div></body></html>
+</div>
+<div id="n3index" style="margin:26px 0;padding:18px;border:1px solid #232733;border-radius:14px;background:#0d1017">
+  <div style="font:700 13px system-ui;color:#22d3ee;letter-spacing:.6px">N3MAK EXPOSURE INDEX — LIVE</div>
+  <div id="n3rows" style="font:14px system-ui;color:#d9dee9;margin-top:10px">loading…</div>
+  <div style="margin-top:12px"><img src="https://n3mak-bot-n7dx.onrender.com/badge/US.svg" alt="US exposure" height="26"></div>
+  <div style="font:13px system-ui;color:#8b94a7;margin-top:8px">Updated every 30 minutes by the N3mak agent. Badge for any country: /badge/XX.svg</div>
+</div>
+<script>
+fetch("https://n3mak-bot-n7dx.onrender.com/api/index").then(r=>r.json()).then(d=>{
+  const rows=(d.countries||[]).slice(0,5).map(c=>`${c.country} <b style="color:${c.level==='critical'?'#e11d48':'#22d3ee'}">${c.index}/100</b> <span style="color:#8b94a7">${c.victims} victims · ${c.level}</span>`).join("<br>");
+  document.getElementById("n3rows").innerHTML = rows || "no data yet";
+}).catch(()=>{document.getElementById("n3rows").textContent="index unavailable";});
+</script>
+
+</body></html>
